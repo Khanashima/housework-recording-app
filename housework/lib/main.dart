@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:housework/router/router.dart';
 import 'package:path/path.dart';
 import 'package:collection/collection.dart';
 import 'package:sqflite/sqflite.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 
   //DBの作成
   final databasesPath = await getDatabasesPath();
@@ -16,11 +20,11 @@ void main() async {
   String path = join(databasesPath, 'housework.db');
   // open the database
   Database database = await openDatabase(path, version: 1,
-    onCreate: (Database db, int version) async {
-  // When creating the db, create the table
-  await db.execute(
-      'CREATE TABLE m_workhouse (id INTEGER PRIMARY KEY, name TEXT, value INTEGER)');
-});
+      onCreate: (Database db, int version) async {
+    // When creating the db, create the table
+    await db.execute(
+        'CREATE TABLE m_workhouse (id INTEGER PRIMARY KEY, name TEXT, value INTEGER)');
+  });
 }
 
 class MyApp extends StatelessWidget {
