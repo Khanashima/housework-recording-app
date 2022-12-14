@@ -17,7 +17,7 @@ void main() async {
 
   //DBの作成
   final database = MyDatabase();
-  database.into(database.houseworks).insert(HouseworksCompanion(name: Value('掃除')));
+  //database.into(database.houseworks).insert(HouseworksCompanion(name: Value('掃除')));
 }
 
 class MyApp extends StatelessWidget {
