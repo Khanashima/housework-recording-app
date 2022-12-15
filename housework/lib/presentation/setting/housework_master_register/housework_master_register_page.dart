@@ -11,7 +11,6 @@ class HouseworkMasterRegisterPage extends StatelessWidget {
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
             TextField(
               controller: _houseWorkTextController,
@@ -27,7 +26,23 @@ class HouseworkMasterRegisterPage extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                await showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('家事登録'),
+                      content: const Text('家事登録に失敗しました。'),
+                      actions: [
+                        ElevatedButton(
+                          child: const Text('閉じる'),
+                          onPressed: () => {Navigator.pop(context)},
+                        ),
+                      ],
+                    );
+                  },
+                );
                 print(_houseWorkTextController.text);
               },
               child: Text('登録'),
