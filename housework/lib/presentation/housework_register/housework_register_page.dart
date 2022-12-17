@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:housework/db/database.dart';
 
 import '../../provider/housework_register/housework_register_provider.dart';
 import '../../util/multi_device.dart';
@@ -11,8 +12,9 @@ class HouseworkRegisterPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     MultiDevice.init(context);
-    final housework = ref.watch(houseworkRegisterProvider);
+    final houseworkState = ref.watch(houseworkRegisterProvider);
     final houseworkNotifier = ref.watch(houseworkRegisterProvider.notifier);
+    houseworkNotifier.setMasterHouseworks();
     return Scaffold(
       appBar: AppBar(
         title: const Text('家事登録画面'),
@@ -26,9 +28,20 @@ class HouseworkRegisterPage extends ConsumerWidget {
           child: Column(
             // Property
             children: [
-              Text('家事登録画面' + housework.errorMsg),
+              Text('家事登録画面' + houseworkState.errorMsg),
+              DropdownButton<String>(
+              items: houseworkState.masterHouseworks
+            .map((Housework housework) =>
+                DropdownMenuItem(value: housework.id.toString(), child: Text(housework.name)))
+            .toList(),
+              onChanged: (String? value) {
+                  print(value);
+              },
+              value: '1',
+            ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async{
+                  await houseworkNotifier.setMasterHouseworks();
                   houseworkNotifier.addHousework('登録失敗');
                 },
                 child: Text('登録'),
