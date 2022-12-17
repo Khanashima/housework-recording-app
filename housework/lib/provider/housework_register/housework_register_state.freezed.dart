@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HouseworkRegisterState {
+  List<Housework> get masterHouseworks => throw _privateConstructorUsedError;
   Housework? get housework => throw _privateConstructorUsedError;
   String get errorMsg => throw _privateConstructorUsedError;
 
@@ -30,9 +31,10 @@ abstract class $HouseworkRegisterStateCopyWith<$Res> {
           $Res Function(HouseworkRegisterState) then) =
       _$HouseworkRegisterStateCopyWithImpl<$Res, HouseworkRegisterState>;
   @useResult
-  $Res call({Housework? housework, String errorMsg});
-
-  $HouseworkCopyWith<$Res>? get housework;
+  $Res call(
+      {List<Housework> masterHouseworks,
+      Housework? housework,
+      String errorMsg});
 }
 
 /// @nodoc
@@ -49,10 +51,15 @@ class _$HouseworkRegisterStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? masterHouseworks = null,
     Object? housework = freezed,
     Object? errorMsg = null,
   }) {
     return _then(_value.copyWith(
+      masterHouseworks: null == masterHouseworks
+          ? _value.masterHouseworks
+          : masterHouseworks // ignore: cast_nullable_to_non_nullable
+              as List<Housework>,
       housework: freezed == housework
           ? _value.housework
           : housework // ignore: cast_nullable_to_non_nullable
@@ -62,18 +69,6 @@ class _$HouseworkRegisterStateCopyWithImpl<$Res,
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $HouseworkCopyWith<$Res>? get housework {
-    if (_value.housework == null) {
-      return null;
-    }
-
-    return $HouseworkCopyWith<$Res>(_value.housework!, (value) {
-      return _then(_value.copyWith(housework: value) as $Val);
-    });
   }
 }
 
@@ -85,10 +80,10 @@ abstract class _$$_HouseworkRegisterStateCopyWith<$Res>
       __$$_HouseworkRegisterStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Housework? housework, String errorMsg});
-
-  @override
-  $HouseworkCopyWith<$Res>? get housework;
+  $Res call(
+      {List<Housework> masterHouseworks,
+      Housework? housework,
+      String errorMsg});
 }
 
 /// @nodoc
@@ -103,10 +98,15 @@ class __$$_HouseworkRegisterStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? masterHouseworks = null,
     Object? housework = freezed,
     Object? errorMsg = null,
   }) {
     return _then(_$_HouseworkRegisterState(
+      masterHouseworks: null == masterHouseworks
+          ? _value._masterHouseworks
+          : masterHouseworks // ignore: cast_nullable_to_non_nullable
+              as List<Housework>,
       housework: freezed == housework
           ? _value.housework
           : housework // ignore: cast_nullable_to_non_nullable
@@ -122,7 +122,21 @@ class __$$_HouseworkRegisterStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HouseworkRegisterState implements _HouseworkRegisterState {
-  const _$_HouseworkRegisterState({this.housework, this.errorMsg = ''});
+  const _$_HouseworkRegisterState(
+      {final List<Housework> masterHouseworks = const [],
+      this.housework,
+      this.errorMsg = ''})
+      : _masterHouseworks = masterHouseworks;
+
+  final List<Housework> _masterHouseworks;
+  @override
+  @JsonKey()
+  List<Housework> get masterHouseworks {
+    if (_masterHouseworks is EqualUnmodifiableListView)
+      return _masterHouseworks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_masterHouseworks);
+  }
 
   @override
   final Housework? housework;
@@ -132,7 +146,7 @@ class _$_HouseworkRegisterState implements _HouseworkRegisterState {
 
   @override
   String toString() {
-    return 'HouseworkRegisterState(housework: $housework, errorMsg: $errorMsg)';
+    return 'HouseworkRegisterState(masterHouseworks: $masterHouseworks, housework: $housework, errorMsg: $errorMsg)';
   }
 
   @override
@@ -140,14 +154,19 @@ class _$_HouseworkRegisterState implements _HouseworkRegisterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HouseworkRegisterState &&
-            (identical(other.housework, housework) ||
-                other.housework == housework) &&
+            const DeepCollectionEquality()
+                .equals(other._masterHouseworks, _masterHouseworks) &&
+            const DeepCollectionEquality().equals(other.housework, housework) &&
             (identical(other.errorMsg, errorMsg) ||
                 other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, housework, errorMsg);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_masterHouseworks),
+      const DeepCollectionEquality().hash(housework),
+      errorMsg);
 
   @JsonKey(ignore: true)
   @override
@@ -159,9 +178,12 @@ class _$_HouseworkRegisterState implements _HouseworkRegisterState {
 
 abstract class _HouseworkRegisterState implements HouseworkRegisterState {
   const factory _HouseworkRegisterState(
-      {final Housework? housework,
+      {final List<Housework> masterHouseworks,
+      final Housework? housework,
       final String errorMsg}) = _$_HouseworkRegisterState;
 
+  @override
+  List<Housework> get masterHouseworks;
   @override
   Housework? get housework;
   @override
