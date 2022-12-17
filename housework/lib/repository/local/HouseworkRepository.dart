@@ -14,4 +14,13 @@ class HouseworkRepository {
         .into(database.houseworks)
         .insert(HouseworksCompanion(name: Value(name)));
   }
+
+  /**
+   *
+   * 家事マスターを全件取得する
+   *
+   */
+  Future<List<Housework>> getAllHouseworks() async {
+    return await database.select(database.houseworks).get();
+  }
 }
