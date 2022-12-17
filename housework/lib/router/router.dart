@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:housework/presentation/housework_register/housework_register_page.dart';
+import 'package:housework/presentation/setting/housework_master_register/housework_master_register_page.dart';
 
 import '../main.dart';
 import '../presentation/common/tab.dart';
@@ -33,9 +34,16 @@ final router = GoRouter(
           builder: (context, state) => const HouseworkListPage(),
         ),
         GoRoute(
-          path: '/setting',
-          builder: (context, state) => const SettingPage(),
-        )
+            path: '/setting',
+            builder: (context, state) => const SettingPage(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'housework/register',
+                builder: (BuildContext context, GoRouterState state) {
+                  return HouseworkMasterRegisterPage();
+                },
+              )
+            ])
       ],
     ),
   ],
