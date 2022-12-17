@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:housework/repository/local/HouseworkRepository.dart';
+
+import '../../common/alertdialogWidget.dart';
 
 class HouseworkMasterRegisterPage extends StatelessWidget {
   HouseworkMasterRegisterPage({super.key});
   final _houseWorkTextController = TextEditingController();
+  final _houseworkRepository = HouseworkRepository();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,22 +31,9 @@ class HouseworkMasterRegisterPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                await showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('家事登録'),
-                      content: const Text('家事登録に失敗しました。'),
-                      actions: [
-                        ElevatedButton(
-                          child: const Text('閉じる'),
-                          onPressed: () => {Navigator.pop(context)},
-                        ),
-                      ],
-                    );
-                  },
-                );
+                _houseworkRepository.addHouseWork(_houseWorkTextController.text);
+                await AlertDialogWidget.showYesDialog(
+                    context, '家事登録', '家事登録に成功しました', '閉じる');
                 print(_houseWorkTextController.text);
               },
               child: Text('登録'),

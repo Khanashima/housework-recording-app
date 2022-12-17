@@ -7,6 +7,8 @@ import 'package:housework/router/router.dart';
 import 'package:path/path.dart';
 import 'package:collection/collection.dart';
 
+final MyDatabase database = MyDatabase();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
@@ -14,10 +16,6 @@ void main() async {
       child: MyApp(),
     ),
   );
-
-  //DBの作成
-  final database = MyDatabase();
-  //database.into(database.houseworks).insert(HouseworksCompanion(name: Value('掃除')));
 }
 
 class MyApp extends StatelessWidget {

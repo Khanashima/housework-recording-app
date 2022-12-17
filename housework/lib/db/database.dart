@@ -15,7 +15,6 @@ class Houseworks extends Table {
 
 @DriftDatabase(tables: [Houseworks])
 class MyDatabase extends _$MyDatabase {
-  //4
   MyDatabase() : super(_openConnection());
 
   @override
